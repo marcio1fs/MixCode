@@ -1,0 +1,35 @@
+# Development Dockerfile for MixCode AI Assisted IDE
+
+FROM node:20-alpine
+
+# Install Python and other dependencies
+RUN apk add --no-cache python3 py3-pip git
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY vite.config.ts ./
+COPY tsconfig.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy Python requirements
+COPY apps/ai-services/requirements.txt ./backend/requirements.txt
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r backend/requirements.txt
+
+# Copy source code
+COPY . .
+
+# Create symlinks for development
+RUN ln -sf /app/apps/ai-services /app/backend
+RUN ln -sf /app/plugins/mix-muse /app/plugins/mix-muse
+
+# Expose ports
+EXPOSE 5173 8000
+
+# Default command
+CMD ["sh", "-c", "cd backend && python3 main.py & cd /app && npm run dev"] 
