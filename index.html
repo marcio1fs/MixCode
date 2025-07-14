@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MixCode – AI Assisted IDE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      :root, [data-theme="dark"] {
+        --color-bg-primary: #111827; /* gray-900 */
+        --color-bg-secondary: #1f2937; /* gray-800 */
+        --color-bg-tertiary: #374151; /* gray-700 */
+        --color-bg-quaternary: #4b5563; /* gray-600 */
+        --color-bg-hover: #374151;
+        --color-border-primary: #374151; /* gray-700 */
+        --color-border-secondary: #4b5563; /* gray-600 */
+        --color-text-primary: #f3f4f6; /* gray-200 */
+        --color-text-secondary: #d1d5db; /* gray-300 */
+        --color-text-tertiary: #9ca3af; /* gray-400 */
+        --color-text-quaternary: #6b7280; /* gray-500 */
+        --color-text-inverted: #111827;
+        --color-text-white: #ffffff;
+        --color-accent: #3b82f6; /* blue-600 */
+        --color-accent-hover: #2563eb; /* blue-700 */
+        --color-accent-text: #ffffff;
+        --color-accent-subtle: #60a5fa; /* blue-400 */
+        --color-success: #16a34a; /* green-600 */
+        --color-success-hover: #15803d;
+        --color-success-text: #4ade80; /* green-400 */
+        --color-danger: #e11d48; /* rose-600 */
+        --color-danger-hover: #be123c;
+        --color-danger-text: #f472b6; /* rose-400 */
+        --color-warning: #f59e0b; /* amber-500 */
+        --color-warning-text: #fbbf24; /* amber-400 */
+        --color-info-text: #38bdf8; /* sky-400 */
+        --color-code-text: #818cf8; /* indigo-400 */
+        --color-ring: var(--color-accent);
+        --color-ring-offset: var(--color-bg-secondary);
+      }
+
+      [data-theme="light"] {
+        --color-bg-primary: #ffffff;
+        --color-bg-secondary: #f9fafb; /* gray-50 */
+        --color-bg-tertiary: #f3f4f6; /* gray-100 */
+        --color-bg-quaternary: #e5e7eb; /* gray-200 */
+        --color-bg-hover: #f3f4f6;
+        --color-border-primary: #e5e7eb; /* gray-200 */
+        --color-border-secondary: #d1d5db; /* gray-300 */
+        --color-text-primary: #111827; /* gray-900 */
+        --color-text-secondary: #374151; /* gray-700 */
+        --color-text-tertiary: #6b7280; /* gray-500 */
+        --color-text-quaternary: #9ca3af; /* gray-400 */
+        --color-text-inverted: #ffffff;
+        --color-text-white: #ffffff;
+        --color-accent: #2563eb; /* blue-600 */
+        --color-accent-hover: #1d4ed8; /* blue-700 */
+        --color-success: #16a34a;
+        --color-success-hover: #15803d;
+        --color-success-text: #16a34a;
+        --color-danger: #dc2626;
+        --color-danger-hover: #b91c1c;
+        --color-danger-text: #dc2626;
+        --color-info-text: #0284c7;
+        --color-code-text: #4338ca;
+      }
+
+      [data-theme="solarized"] {
+        --color-bg-primary: #002b36; /* base03 */
+        --color-bg-secondary: #073642; /* base02 */
+        --color-bg-tertiary: #586e75; /* base01 */
+        --color-bg-quaternary: #657b83; /* base00 */
+        --color-bg-hover: #657b83;
+        --color-border-primary: #586e75;
+        --color-border-secondary: #839496;
+        --color-text-primary: #839496; /* base0 */
+        --color-text-secondary: #93a1a1; /* base1 */
+        --color-text-tertiary: #657b83; /* base1 */
+        --color-text-quaternary: #586e75; /* base01 */
+        --color-text-inverted: #002b36;
+        --color-text-white: #fdf6e3;
+        --color-accent: #268bd2; /* blue */
+        --color-accent-hover: #2aa198; /* cyan */
+        --color-success: #859900;
+        --color-success-hover: #728300;
+        --color-success-text: #859900;
+        --color-danger: #dc322f;
+        --color-danger-hover: #b82b29;
+        --color-danger-text: #dc322f;
+        --color-info-text: #2aa198;
+        --color-code-text: #cb4b16;
+      }
+    </style>
+  <script>
+    // Polyfill process.env for browser environment if it doesn't exist
+    if (typeof window.process === 'undefined') {
+      window.process = {
+        env: {
+          // IMPORTANT: These are mock keys for demonstration purposes.
+          // In a real application, these should be supplied by the build environment
+          // and should be kept secure. Do not hardcode real keys in client-side code.
+          API_KEY: 'mock_api_key_for_gemini', // This will be replaced by the platform.
+          MIXSYNC_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=' // A valid 32-byte base64 key for demo encryption.
+        }
+      };
+    }
+  </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.9.0",
+    "vite": "https://esm.sh/vite@^7.0.4",
+    "@sveltejs/kit/": "https://esm.sh/@sveltejs/kit@^2.22.5/",
+    "@sveltejs/vite-plugin-svelte": "https://esm.sh/@sveltejs/vite-plugin-svelte@^6.0.0",
+    "@sveltejs/adapter-static": "https://esm.sh/adapter-static@^3.0.8",
+    "react-markdown": "https://esm.sh/react-markdown@9",
+    "remark-gfm": "https://esm.sh/remark-gfm@4",
+    "remark-breaks": "https://esm.sh/remark-breaks@4",
+    "@monaco-editor/react": "https://esm.sh/@monaco-editor/react@^4.6.0",
+    "monaco-editor": "https://esm.sh/monaco-editor@^0.52.2"
+  }
+}
+</script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+  window.mermaid = mermaid;
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "MixCode – AI Assisted IDE",
+  "description": "A modern, AI-centric IDE concept that integrates intelligent code assistance to accelerate the development lifecycle. This web-based prototype demonstrates core features like a file navigator, code editor, and an AI chat assistant powered by Gemini, designed with a user experience familiar to VS Code.",
+  "requestFramePermissions": []
+}

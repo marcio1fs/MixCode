@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Mix Muse - Teste de Componente</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .test-info {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-info h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .test-info ul {
+            color: #666;
+        }
+        
+        .component-container {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🎵 Mix Muse - Teste de Componente</h1>
+        <p>Testando o componente Svelte com o servidor Python</p>
+    </div>
+    
+    <div class="test-info">
+        <h3>📋 Instruções de Teste:</h3>
+        <ul>
+            <li>✅ Certifique-se de que o servidor Python está rodando: <code>python server.py</code></li>
+            <li>✅ O servidor deve estar disponível em: <code>http://localhost:8000</code></li>
+            <li>✅ Teste os endpoints: <code>/mixmuse/recent</code> e <code>/mixmuse/rename</code></li>
+            <li>✅ Clique em "Aplicar" para testar a funcionalidade de renomeação</li>
+        </ul>
+    </div>
+    
+    <div class="component-container">
+        <!-- Aqui você pode incluir o componente Svelte -->
+        <div style="text-align: center; padding: 40px; background: #f9f9f9; border-radius: 10px;">
+            <h3>🎵 Componente Mix Muse</h3>
+            <p>Para usar o componente Svelte, você precisa:</p>
+            <ol style="text-align: left; max-width: 500px; margin: 0 auto;">
+                <li>Instalar o Svelte: <code>npm install svelte</code></li>
+                <li>Importar o componente: <code>import MixMuseSuggestions from './MixMuseSuggestions.svelte'</code></li>
+                <li>Usar no template: <code>&lt;MixMuseSuggestions /&gt;</code></li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="test-info">
+        <h3>🧪 Teste Manual das APIs:</h3>
+        <p>Você pode testar as APIs diretamente no navegador ou usando curl:</p>
+        
+        <h4>GET /mixmuse/recent</h4>
+        <code>curl http://localhost:8000/mixmuse/recent</code>
+        
+        <h4>POST /mixmuse/rename</h4>
+        <code>curl -X POST http://localhost:8000/mixmuse/rename \
+  -H "Content-Type: application/json" \
+  -d '{"original": "test_function", "newName": "orchestrateTest"}'</code>
+        
+        <h4>GET /mixmuse/suggestions/count</h4>
+        <code>curl http://localhost:8000/mixmuse/suggestions/count</code>
+    </div>
+    
+    <div class="test-info">
+        <h3>🎵 Funcionalidades Implementadas:</h3>
+        <ul>
+            <li>✅ Endpoint <code>/mixmuse/recent</code> - Lista sugestões recentes</li>
+            <li>✅ Endpoint <code>/mixmuse/rename</code> - Aplica renomeação</li>
+            <li>✅ Endpoint <code>/mixmuse/suggestions/count</code> - Conta sugestões</li>
+            <li>✅ Componente Svelte com interface bonita</li>
+            <li>✅ Tratamento de erros e loading states</li>
+            <li>✅ Emojis musicais baseados no tipo de função</li>
+        </ul>
+    </div>
+    
+    <script>
+        // Teste automático das APIs
+        async function testAPIs() {
+            console.log('🧪 Testando APIs do Mix Muse...');
+            
+            try {
+                // Teste 1: GET /mixmuse/recent
+                const recentRes = await fetch('http://localhost:8000/mixmuse/recent');
+                if (recentRes.ok) {
+                    const recentData = await recentRes.json();
+                    console.log('✅ GET /mixmuse/recent:', recentData);
+                } else {
+                    console.error('❌ GET /mixmuse/recent failed:', recentRes.status);
+                }
+                
+                // Teste 2: GET /mixmuse/suggestions/count
+                const countRes = await fetch('http://localhost:8000/mixmuse/suggestions/count');
+                if (countRes.ok) {
+                    const countData = await countRes.json();
+                    console.log('✅ GET /mixmuse/suggestions/count:', countData);
+                } else {
+                    console.error('❌ GET /mixmuse/suggestions/count failed:', countRes.status);
+                }
+                
+                // Teste 3: POST /mixmuse/rename
+                const renameRes = await fetch('http://localhost:8000/mixmuse/rename', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        original: 'test_function', 
+                        newName: 'orchestrateTest' 
+                    })
+                });
+                if (renameRes.ok) {
+                    const renameData = await renameRes.json();
+                    console.log('✅ POST /mixmuse/rename:', renameData);
+                } else {
+                    console.error('❌ POST /mixmuse/rename failed:', renameRes.status);
+                }
+                
+            } catch (error) {
+                console.error('❌ Erro ao testar APIs:', error);
+                console.log('💡 Certifique-se de que o servidor está rodando em http://localhost:8000');
+            }
+        }
+        
+        // Executar teste quando a página carregar
+        window.addEventListener('load', testAPIs);
+    </script>
+</body>
+</html> 

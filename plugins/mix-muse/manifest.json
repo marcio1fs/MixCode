@@ -1,0 +1,39 @@
+{
+  "name": "Mix Muse",
+  "version": "1.0.0",
+  "description": "Plugin de IA musical que gera código inspirado em música e ritmos",
+  "author": "MixCode Team",
+  "main": "index.ts",
+  "dependencies": {
+    "python": "muse_agent.py"
+  },
+  "capabilities": [
+    "code-generation",
+    "music-analysis",
+    "rhythm-patterns",
+    "creative-coding"
+  ],
+  "settings": {
+    "musicStyle": {
+      "type": "string",
+      "default": "jazz",
+      "options": ["jazz", "classical", "electronic", "rock", "ambient"]
+    },
+    "tempo": {
+      "type": "number",
+      "default": 120,
+      "min": 60,
+      "max": 200
+    },
+    "complexity": {
+      "type": "string",
+      "default": "medium",
+      "options": ["simple", "medium", "complex"]
+    }
+  },
+  "hooks": {
+    "onCodeChange": true,
+    "onOpenFile": true,
+    "onGenerateCode": true
+  }
+} 

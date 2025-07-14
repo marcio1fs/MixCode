@@ -1,0 +1,92 @@
+{
+  "name": "mix-muse",
+  "version": "1.0.0",
+  "description": "Plugin de IA musical que analisa código e sugere melhorias baseadas em teoria musical",
+  "author": "MixCode Team",
+  "main": "mixplugin.ts",
+  "server": {
+    "host": "localhost",
+    "port": 8000,
+    "endpoints": {
+      "suggest": "/mixmuse/suggest",
+      "analyze": "/mixmuse/analyze",
+      "realtime": "/mixmuse/analyze-realtime",
+      "health": "/mixmuse/health"
+    }
+  },
+  "settings": {
+    "musicStyle": {
+      "type": "select",
+      "label": "Estilo Musical",
+      "options": [
+        {"value": "jazz", "label": "Jazz", "description": "Improvisação e complexidade"},
+        {"value": "classical", "label": "Classical", "description": "Estrutura formal"},
+        {"value": "electronic", "label": "Electronic", "description": "Padrões sintetizados"},
+        {"value": "rock", "label": "Rock", "description": "Código energético"},
+        {"value": "ambient", "label": "Ambient", "description": "Fluxo livre"}
+      ],
+      "default": "jazz"
+    },
+    "tempo": {
+      "type": "number",
+      "label": "Tempo (BPM)",
+      "min": 60,
+      "max": 200,
+      "default": 120
+    },
+    "complexity": {
+      "type": "select",
+      "label": "Complexidade",
+      "options": [
+        {"value": "simple", "label": "Simple", "description": "Código básico"},
+        {"value": "medium", "label": "Medium", "description": "Código moderado"},
+        {"value": "complex", "label": "Complex", "description": "Código avançado"}
+      ],
+      "default": "medium"
+    },
+    "enableNamingSuggestions": {
+      "type": "boolean",
+      "label": "Sugestões de Nomes Musicais",
+      "default": true
+    },
+    "enableMusicalAnalysis": {
+      "type": "boolean",
+      "label": "Análise Musical",
+      "default": true
+    },
+    "enableRealtimeAnalysis": {
+      "type": "boolean",
+      "label": "Análise em Tempo Real",
+      "default": true
+    },
+    "showMusicalPatterns": {
+      "type": "boolean",
+      "label": "Mostrar Padrões Musicais",
+      "default": true
+    }
+  },
+  "features": [
+    "musical_analysis",
+    "naming_suggestions",
+    "realtime_analysis",
+    "pattern_generation",
+    "complexity_assessment"
+  ],
+  "supportedLanguages": [
+    "javascript",
+    "typescript",
+    "python",
+    "java",
+    "csharp",
+    "cpp",
+    "go",
+    "rust"
+  ],
+  "dependencies": {
+    "python": {
+      "fastapi": "^0.104.1",
+      "uvicorn": "^0.24.0",
+      "pydantic": "^2.5.0"
+    }
+  }
+} 
