@@ -16,6 +16,29 @@ export default defineConfig(({ mode }) => {
           '@': path.resolve(__dirname, '.'),
         }
       },
+      build: {
+        outDir: 'dist',
+        sourcemap: mode === 'development',
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              vendor: ['react', 'react-dom'],
+              editor: ['@monaco-editor/react', 'monaco-editor'],
+              ai: ['@google/genai']
+            }
+          }
+        },
+        chunkSizeWarningLimit: 1000
+      },
+      base: process.env.NODE_ENV === 'production' ? '/MixCode/' : '/',
+      server: {
+        port: 5173,
+        host: true
+      },
+      preview: {
+        port: 4173,
+        host: true
+      },
       test: {
         globals: true,
         environment: 'jsdom',
